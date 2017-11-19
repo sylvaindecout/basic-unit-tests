@@ -13,28 +13,20 @@
         <compile.target.version>8</compile.target.version>
 
         <!-- Third-party dependency versions -->
-        <junit.version>4.8.1</junit.version>
-        <mockito.version>2.2.5</mockito.version>
-        <junitparams.version>1.0.2</junitparams.version>
-        <assertj.version>2.4.1</assertj.version> <!-- use 2.4.1 for Java 7 projects -->
-        <assertj-guava.version>2.0.0</assertj-guava.version> <!-- use 2.x.x for AssertJ Core 2.x.x -->
-        <jsonassert.version>1.4.0</jsonassert.version>
-        <guava.version>19.0</guava.version>
+        <junit.version>4.12</junit.version> <!-- TODO: upgrade towards junit5 -->
+        <mockito.version>2.12.0</mockito.version>
+        <junitparams.version>1.1.1</junitparams.version>
+        <assertj.version>3.8.0</assertj.version>
+        <assertj-guava.version>3.1.0</assertj-guava.version>
+        <jsonassert.version>1.5.0</jsonassert.version>
+        <guava.version>23.4-jre</guava.version>
 
         <!-- Maven plug-in versions -->
-        <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
-        <maven-surefire-plugin.version>2.13</maven-surefire-plugin.version>
-        <pitest-maven-plugin.version>1.1.9</pitest-maven-plugin.version>
-        <maven-jar-plugin.version>2.4</maven-jar-plugin.version>
-        <jacoco-maven-plugin.version>0.7.4.201502262128</jacoco-maven-plugin.version>
-        <m2e-lifecycle-mapping-plugin.version>1.0.0</m2e-lifecycle-mapping-plugin.version>
-        <buildnumber-maven-plugin.version>1.1</buildnumber-maven-plugin.version>
-        <maven-failsafe-plugin.version>2.15</maven-failsafe-plugin.version>
-        <maven-javadoc-plugin.version>2.10.3</maven-javadoc-plugin.version>
-        <maven-assembly-plugin.version>2.5.4</maven-assembly-plugin.version>
-        <rpm-maven-plugin.version>2.1.5</rpm-maven-plugin.version>
-        <gmaven-plugin.version>1.0</gmaven-plugin.version>
-        <maven-springboot-plugin.version>1.5.3.RELEASE</maven-springboot-plugin.version>
+        <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>2.20.1</maven-surefire-plugin.version>
+        <maven-failsafe-plugin.version>2.20.1</maven-failsafe-plugin.version>
+        <jacoco-maven-plugin.version>0.7.9</jacoco-maven-plugin.version> <!-- TODO: add coverage to build -->
+        <pitest-maven-plugin.version>1.2.4</pitest-maven-plugin.version> <!-- TODO: add mutation coverage to build -->
     </properties>
 
     <dependencies>
@@ -94,6 +86,37 @@
                         <source>${compile.source.version}</source>
                         <target>${compile.target.version}</target>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                    <configuration>
+                        <!-- Excludes integration tests when unit tests are run. -->
+                        <excludes>
+                            <exclude>**/*IT.java</exclude>
+                        </excludes>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>${maven-failsafe-plugin.version}</version>
+                    <configuration>
+                        <includes>
+                            <include>**/*IT.java</include>
+                        </includes>
+                    </configuration>
+                    <executions>
+                        <!-- Ensures that both integration-test and verify goals of the Failsafe Maven plugin are executed. -->
+                        <execution>
+                            <id>integration-tests</id>
+                            <goals>
+                                <goal>integration-test</goal>
+                                <goal>verify</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
