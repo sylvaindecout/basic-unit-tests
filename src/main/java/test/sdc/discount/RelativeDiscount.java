@@ -42,4 +42,12 @@ public final class RelativeDiscount
         return Price.fromDollars(initialPrice.asDollars() * (1 - this.value));
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return String.format("-%s%%", this.value * 100);
+    }
+
 }

@@ -42,4 +42,12 @@ public final class AbsoluteDiscount
         return Price.fromDollars(initialPrice.asDollars() - this.amount.asDollars());
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return String.format("-%s", this.amount);
+    }
+
 }
