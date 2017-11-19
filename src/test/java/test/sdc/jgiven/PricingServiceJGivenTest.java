@@ -17,7 +17,7 @@ import test.sdc.model.Price;
 import static com.google.common.collect.Range.*;
 
 @RunWith(JUnitParamsRunner.class)
-public class PricingServerJGivenTest
+public class PricingServiceJGivenTest
         extends ScenarioTest<GivenArticleAndDiscountPolicy,
         WhenServiceComputesPrice,
         ThenPriceIncludesDiscount> {

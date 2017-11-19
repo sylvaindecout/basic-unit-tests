@@ -25,7 +25,7 @@ import static org.mockito.Mockito.only;
 import static org.mockito.Mockito.when;
 import static test.sdc.ArticleMatcher.articleWithPriceIn;
 
-class PricingServerJupiterTest {
+class PricingServiceJupiterTest {
 
     @Mock
     private DiscountPolicy discountPolicy;

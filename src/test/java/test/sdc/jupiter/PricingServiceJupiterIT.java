@@ -8,9 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertTimeout;
 
 /*
 This class has been created so that tests are taken into account by the build, as the logic to identify integration tests is too different between JUnit4 (*IT.java) and Jupiter (@Tag per method).
-In a 100%-Jupiter project, all tests of this class could be moved into PricingServerJupiterTest.
+In a 100%-Jupiter project, all tests of this class could be moved into PricingServiceJupiterTest.
 */
-class PricingServerJupiterIT {
+class PricingServiceJupiterIT {
 
     /* This is a fake test used to illustrate the distinction between unit tests and integration tests. */
     @Test
