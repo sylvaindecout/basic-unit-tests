@@ -2,6 +2,8 @@
 
 This project is a very basic example used to illustrate how unit test frameworks integrate.
 
+## Test case
+
 The entry point is **PricingService**, which is in charge of providing a price for an article reference.
 A **catalogue** provides article details. A **discount policy** decides if/which discount is applicable.
 
@@ -16,6 +18,7 @@ Maven build is customized so that plugins run automatically.
 4. **integration-test**: Pitest generates report for unit tests
 5. **post-integration-test**: Jacoco generates report for integration tests
 6. **verify**: Jacoco generates report for unit tests
+6. **verify**: JGiven generates report
 
 ## Frameworks
 

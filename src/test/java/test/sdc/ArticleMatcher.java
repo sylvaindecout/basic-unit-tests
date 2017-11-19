@@ -9,7 +9,7 @@ import static org.mockito.ArgumentMatchers.argThat;
 /**
  * Matcher used to add articles based on their price range as arguments in mockito.
  */
-final class ArticleMatcher implements ArgumentMatcher<Article> {
+public final class ArticleMatcher implements ArgumentMatcher<Article> {
 
     private final Range<Double> range;
 
@@ -18,10 +18,10 @@ final class ArticleMatcher implements ArgumentMatcher<Article> {
     }
 
     /**
-     * Initialize custom argument matcher for an article based on a price range.
+     * Initialize custom argument matcher for an catalogue based on a price range.
      *
      * @param range price range, with prices in dollars
-     * @return article argument matcher
+     * @return catalogue argument matcher
      */
     public static Article articleWithPriceIn(final Range<Double> range) {
         return argThat(new ArticleMatcher(range));

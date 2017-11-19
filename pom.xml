@@ -33,6 +33,9 @@
         <assertj.version>3.8.0</assertj.version>
         <assertj-guava.version>3.1.0</assertj-guava.version>
         <jsonassert.version>1.5.0</jsonassert.version>
+        <jgiven.version>0.15.3</jgiven.version>
+        <slf4j.version>1.7.25</slf4j.version>
+        <log4j.version>1.2.17</log4j.version>
         <guava.version>23.4-jre</guava.version>
 
         <!-- Maven plug-in versions -->
@@ -108,7 +111,41 @@
             <version>${jsonassert.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.tngtech.jgiven</groupId>
+            <artifactId>jgiven-junit</artifactId>
+            <version>${jgiven.version}</version>
+            <scope>test</scope>
+        </dependency>
 
+        <!-- Logger -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jul-to-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
+        <!-- Guava -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
@@ -142,6 +179,10 @@
             <plugin>
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.tngtech.jgiven</groupId>
+                <artifactId>jgiven-maven-plugin</artifactId>
             </plugin>
         </plugins>
         <pluginManagement>
@@ -300,6 +341,22 @@
                             <outputFormat>XML</outputFormat>
                         </outputFormats>
                         <verbose>true</verbose>
+                    </configuration>
+                </plugin>
+                <!-- BDD tests -->
+                <plugin>
+                    <groupId>com.tngtech.jgiven</groupId>
+                    <artifactId>jgiven-maven-plugin</artifactId>
+                    <version>${jgiven.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <format>html</format>
                     </configuration>
                 </plugin>
             </plugins>

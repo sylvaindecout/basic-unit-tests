@@ -64,7 +64,7 @@ public class PricingServiceJUnit4Test {
         given(this.catalogue.find(testArticle.getReference()))
                 .willReturn(testArticle);
 
-        final Price actual = this.service.computePrice(testArticle.getReference());
+        this.service.computePrice(testArticle.getReference());
 
         then(this.catalogue).should(only()).find(testArticle.getReference());
         then(this.discountPolicy).should(only()).getApplicableDiscount(testArticle);
