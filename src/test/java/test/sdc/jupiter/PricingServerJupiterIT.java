@@ -1,4 +1,4 @@
-package test.sdc;
+package test.sdc.jupiter;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;

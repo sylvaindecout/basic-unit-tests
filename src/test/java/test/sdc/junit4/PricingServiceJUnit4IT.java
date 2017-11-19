@@ -1,4 +1,4 @@
-package test.sdc;
+package test.sdc.junit4;
 
 import org.junit.Test;
 

@@ -1,13 +1,15 @@
-package test.sdc;
+package test.sdc.jupiter;
 
-import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import test.sdc.Catalogue;
+import test.sdc.DiscountPolicy;
+import test.sdc.PricingService;
 import test.sdc.discount.AbsoluteDiscount;
 import test.sdc.discount.RelativeDiscount;
 import test.sdc.model.Article;
@@ -23,8 +25,7 @@ import static org.mockito.Mockito.only;
 import static org.mockito.Mockito.when;
 import static test.sdc.ArticleMatcher.articleWithPriceIn;
 
-@RunWith(JUnitParamsRunner.class)
-public class PricingServiceJUnit4Test {
+class PricingServerJupiterTest {
 
     @Mock
     private DiscountPolicy discountPolicy;
@@ -33,20 +34,8 @@ public class PricingServiceJUnit4Test {
     @InjectMocks
     private PricingService service;
 
-    private static Object[] price_mapping() {
-        return new Object[][]{
-                {0., 0.},
-                {0.1, 0.1},
-                {49., 49.},
-                {50., 45.},
-                {90., 81.},
-                {100., 70.},
-                {200., 170.},
-        };
-    }
-
-    @Before
-    public void init() {
+    @BeforeEach
+    void init() {
         MockitoAnnotations.initMocks(this);
 
         /* Setup test discount policy. */
@@ -59,20 +48,26 @@ public class PricingServiceJUnit4Test {
     }
 
     @Test
-    public void should_get_info_from_catalogue_and_discount_policy() {
+    void should_get_info_from_catalogue_and_discount_policy() {
         final Article testArticle = Article.Builder.withReference("123").withPrice(Price.fromDollars(45.59)).build();
         given(this.catalogue.find(testArticle.getReference()))
                 .willReturn(testArticle);
 
-        this.service.computePrice(testArticle.getReference());
+        final Price actual = this.service.computePrice(testArticle.getReference());
 
         then(this.catalogue).should(only()).find(testArticle.getReference());
         then(this.discountPolicy).should(only()).getApplicableDiscount(testArticle);
     }
 
-    @Test
-    @Parameters(method = "price_mapping")
-    public void should_compute_price_properly(final Double cataloguePriceAsDollars, final Double expectedAsDollars) {
+    @ParameterizedTest(name = "initial price: {0} -> with discount: {1}")
+    @CsvSource({"0., 0.",
+            "0.1, 0.1",
+            "49., 49.",
+            "50., 45.",
+            "90., 81.",
+            "100., 70.",
+            "200., 170."})
+    void should_compute_price_properly(final Double cataloguePriceAsDollars, final Double expectedAsDollars) {
         final Price cataloguePrice = Price.fromDollars(cataloguePriceAsDollars);
         final Price expected = Price.fromDollars(expectedAsDollars);
         final Article testArticle = Article.Builder.withReference("123").withPrice(cataloguePrice).build();
