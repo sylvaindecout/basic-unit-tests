@@ -16,3 +16,9 @@ Maven build is customized so that plugins run automatically.
 4. **integration-test**: Pitest generates report for unit tests
 5. **post-integration-test**: Jacoco generates report for integration tests
 6. **verify**: Jacoco generates report for unit tests
+
+## Frameworks
+
+This project implements tests with both JUnit4 and Jupiter. Supporting both impacts Maven configuration a lot.
+
+Besides, this support is not complete, as Maven plugin for Pitest does not support Jupiter yet.
