@@ -39,7 +39,7 @@ public final class RelativeDiscount
      */
     @Override
     public Price apply(final Price initialPrice) {
-        return Price.fromDollars(initialPrice.asDollars() * (1 - this.value));
+        return Price.fromDollars(initialPrice.getValueAsDollars() * (1 - this.value));
     }
 
     /**

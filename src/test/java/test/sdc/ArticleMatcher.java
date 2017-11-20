@@ -32,7 +32,7 @@ public final class ArticleMatcher implements ArgumentMatcher<Article> {
      */
     @Override
     public boolean matches(final Article article) {
-        return article != null && this.range.contains(article.getPrice().asDollars());
+        return article != null && this.range.contains(article.getPrice().getValueAsDollars());
     }
 
 }

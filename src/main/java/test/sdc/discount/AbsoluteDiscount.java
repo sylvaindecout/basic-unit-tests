@@ -37,9 +37,9 @@ public final class AbsoluteDiscount
      */
     @Override
     public Price apply(final Price initialPrice) {
-        checkArgument(initialPrice.asDollars() >= this.amount.asDollars(),
+        checkArgument(initialPrice.getValueAsDollars() >= this.amount.getValueAsDollars(),
                 "Discount (%s) must be lower than initial price (%s)", this.amount, initialPrice);
-        return Price.fromDollars(initialPrice.asDollars() - this.amount.asDollars());
+        return Price.fromDollars(initialPrice.getValueAsDollars() - this.amount.getValueAsDollars());
     }
 
     /**

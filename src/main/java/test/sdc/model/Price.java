@@ -1,26 +1,53 @@
 package test.sdc.model;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
 public final class Price {
 
-    private final Double value;
+    private Double valueAsDollars;
 
-    private Price(final Double value) {
-        super();
-        this.value = value;
+    /**
+     * Private constructor.
+     */
+    private Price() {
     }
 
+    /**
+     * Initialize instance from input value in dollars.
+     *
+     * @param inputValue input value, in dollars
+     * @return new instance
+     */
     public static Price fromDollars(final Double inputValue) {
-        //TODO: check number of decimals, etc.
-        checkArgument(inputValue >= 0, "A price cannot be negative");
-        return new Price(inputValue);
+        checkArgument(inputValue >= 0,
+                "A price cannot be negative (input value: %s)", inputValue);
+        final Integer nbDecimals = getNbDecimals(inputValue);
+        checkArgument(nbDecimals <= 2,
+                "A price should not have more than two decimals (input value: %s)", inputValue);
+        final Price instance = new Price();
+        instance.setValueAsDollars(inputValue);
+        return instance;
     }
 
-    public Double asDollars() {
-        return this.value;
+    /**
+     * Get number of decimals of input positive value.
+     *
+     * @param inputValue value
+     * @return number of decimals
+     */
+    private static Integer getNbDecimals(final Double inputValue) {
+        return BigDecimal.valueOf(inputValue).stripTrailingZeros().scale();
+    }
+
+    public Double getValueAsDollars() {
+        return this.valueAsDollars;
+    }
+
+    private void setValueAsDollars(final Double value) {
+        this.valueAsDollars = value;
     }
 
     /**
@@ -29,7 +56,7 @@ public final class Price {
     @Override
     public boolean equals(final Object other) {
         return other instanceof Price
-                && Objects.equals(this.value, ((Price) other).value);
+                && Objects.equals(this.valueAsDollars, ((Price) other).valueAsDollars);
     }
 
     /**
@@ -37,7 +64,7 @@ public final class Price {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(this.value);
+        return Objects.hash(this.valueAsDollars);
     }
 
     /**
@@ -45,7 +72,7 @@ public final class Price {
      */
     @Override
     public String toString() {
-        return String.format("%.2f$", this.value);
+        return String.format("%1.2f$", this.valueAsDollars);
     }
 
 }
