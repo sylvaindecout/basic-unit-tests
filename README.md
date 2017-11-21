@@ -25,3 +25,7 @@ Maven build is customized so that plugins run automatically.
 This project implements tests with both JUnit4 and Jupiter. Supporting both impacts Maven configuration a lot.
 
 Besides, this support is not complete, as Maven plugin for Pitest does not support Jupiter yet.
+
+## How to run
+
+ - Run tests from IDE / Maven build
