@@ -316,7 +316,6 @@
                     </executions>
                 </plugin>
                 <!-- PIT (mutation testing) reports -->
-                <!-- Note: This plugin does not support Jupiter yet! -->
                 <plugin>
                     <groupId>org.pitest</groupId>
                     <artifactId>pitest-maven</artifactId>
