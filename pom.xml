@@ -45,6 +45,7 @@
         <maven-failsafe-plugin.version>2.19.1</maven-failsafe-plugin.version>
         <jacoco-maven-plugin.version>0.7.9</jacoco-maven-plugin.version>
         <pitest-maven-plugin.version>1.2.4</pitest-maven-plugin.version>
+        <pitest-junit5-plugin.version>0.2</pitest-junit5-plugin.version>
     </properties>
 
     <dependencies>
@@ -333,12 +334,21 @@
                             </configuration>
                         </execution>
                     </executions>
+                    <dependencies>
+                        <!-- If this plugin is activated, JUnit4 tests are not taken into account! -->
+                        <dependency>
+                            <groupId>org.pitest</groupId>
+                            <artifactId>pitest-junit5-plugin</artifactId>
+                            <version>${pitest-junit5-plugin.version}</version>
+                        </dependency>
+                    </dependencies>
                     <configuration>
                         <targetClasses>
                             <param>test.sdc.*</param>
                         </targetClasses>
                         <outputFormats>
                             <outputFormat>XML</outputFormat>
+                            <outputFormat>HTML</outputFormat>
                         </outputFormats>
                         <verbose>true</verbose>
                     </configuration>
