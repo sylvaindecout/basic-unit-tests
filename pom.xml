@@ -24,7 +24,7 @@
         <sonar.jacoco.reportMissing.force.zero>true</sonar.jacoco.reportMissing.force.zero>
 
         <!-- Third-party dependency versions -->
-        <junit.version>4.12</junit.version> <!-- JUnit4 legacy -->
+        <junit.version>4.13.1</junit.version> <!-- JUnit4 legacy -->
         <junit.jupiter.version>5.0.2</junit.jupiter.version>
         <junit.platform.version>1.0.2</junit.platform.version>
         <junit.vintage.version>4.12.2</junit.vintage.version> <!-- JUnit4 legacy -->
